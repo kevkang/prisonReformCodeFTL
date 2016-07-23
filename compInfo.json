@@ -1,0 +1,9 @@
+{
+	company_name:string
+	job_title:string
+	wait_time:string
+	openings:int
+	budget:int
+	training:string(reference to files)
+	skills_needed:string[]
+}
