@@ -1,24 +1,34 @@
-from bottle import route, run, template, post, get
+from bottle import route, run, template, post, get, request
 import json
+from Job import Job
 
 @route('/index')
 def index():
-	benefit = 3
-    return template('home.tpl', benefit = 3)
+    return template('home.tpl', benefit = None)
 
 @post('/index')
 def submit_job_posting():
 	email = request.forms.get('email')
+	print("email:" + email)
 	compName = request.forms.get('compName')
+	print("compName:" + compName)
 	jobTitle = request.forms.get('jobTitle')
+	print("jobTitle:" + jobTitle)
 	skillReq = request.forms.get('skillReq')
+	openings = request.forms.get('openings')
 	trainMat = request.forms.get('trainingMaterial')
-	hourlyWage = request.forms.get('hourlyWage')
 	budget = request.forms.get('budget')
-	numPos = request.forms.get('numPos')
+
 	waitTime = request.forms.get('waitTime')
+
+
 	#DB handling
-	calculatedBenefit = 2;	
+	newJob = Job(compName, jobTitle, waitTime, openings, budget, trainMat, skillReq)
+	if(newJob.save()):
+		#yay
+		print("success")
+	else:
+		print("error!")
 	return template('home.tpl',benefit = 2)
 
 run(host='localhost', port=8080)

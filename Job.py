@@ -69,7 +69,8 @@ class Job(object):
 			self.skills_needed = resp["skills_needed"]
 			self.id = id
 			return True
-		except:
+		except Exception, e :
+			print "Error : " + str(e)
 			return False
 
 	def get_as_json(self):
